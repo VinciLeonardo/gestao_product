@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVP V2 - Portfólio de Inovação e Transferência (PPGTIC/UFSC)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .active-tab {
+            border-bottom: 3px solid #1e3a8a;
+            color: #1e3a8a;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 font-sans antialiased text-slate-800">
+
+    <!-- TARJA OBRIGATÓRIA DE DADOS SIMULADOS -->
+    <div class="bg-amber-400 text-slate-900 px-4 py-2 text-center text-xs sm:text-sm font-bold shadow-sm">
+        ⚠️ AMBIENTE DE SIMULAÇÃO ACADÊMICA (MVP V2 - EX09) — TODOS OS CASOS, NOMES E DOCUMENTOS ABAIXO SÃO DADOS FICTÍCIOS DEMONSTRATIVOS
+    </div>
+
+    <!-- Cabeçalho Institucional -->
+    <header class="bg-blue-950 text-white shadow-md">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+            <div>
+                <h1 class="text-2xl font-bold">Portfólio de Inovação e Transferência | PPGTIC</h1>
+                <p class="text-sm text-blue-200">Equipe 05 • Monitoramento e Evidenciação de Casos (CAPES 3.2 | OE7 | A44–A49)</p>
+            </div>
+            <div class="text-xs bg-blue-900 border border-blue-700 py-1.5 px-3 rounded-md">
+                Versão: <strong>MVP V2 (Funcional)</strong>
+            </div>
+        </div>
+    </header>
+
+    <!-- Painel de Indicadores (KPIs Revisados) -->
+    <section class="max-w-6xl mx-auto px-4 mt-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-emerald-600">
+                <p class="text-xs font-bold text-slate-500 uppercase">Indicador 1: Casos Comprovados (CTC)</p>
+                <div class="flex items-baseline justify-between mt-1">
+                    <span id="kpi-comprovados" class="text-3xl font-extrabold text-emerald-700">1</span>
+                    <span class="text-xs text-slate-500">Meta PPGTIC 2026: ≥ 5 casos</span>
+                </div>
+                <p class="text-xs text-slate-600 mt-1">Aptos para o Anexo 3 (CAPES 3.2) no quadriênio 2025–2028.</p>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-500">
+                <p class="text-xs font-bold text-slate-500 uppercase">Casos Retidos / Em Curadoria</p>
+                <div class="flex items-baseline justify-between mt-1">
+                    <span id="kpi-pendentes" class="text-3xl font-extrabold text-amber-600">2</span>
+                    <span class="text-xs text-slate-500">1 Em Análise | 1 Identificado</span>
+                </div>
+                <p class="text-xs text-slate-600 mt-1">Acompanhamento pela Comissão de Autoavaliação.</p>
+            </div>
+
+            <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-blue-700">
+                <p class="text-xs font-bold text-slate-500 uppercase">Indicador 2: Taxa de Validação (TVT)</p>
+                <div class="flex items-baseline justify-between mt-1">
+                    <span id="kpi-tvt" class="text-3xl font-extrabold text-blue-900">33,3%</span>
+                    <span class="text-xs text-slate-500">Métrica Operacional MVP</span>
+                </div>
+                <p class="text-xs text-slate-600 mt-1">Proporção de casos mapeados com evidência C1–C4 validada.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navegação -->
+    <nav class="bg-white shadow-sm mt-6 mb-6">
+        <div class="max-w-6xl mx-auto px-4">
+            <ul class="flex space-x-8 text-sm">
+                <li>
+                    <button onclick="switchTab('catalogo')" id="tab-catalogo" class="py-4 px-2 active-tab transition">
+                        1. Catálogo e Painel da Comissão (Consulta e Filtros)
+                    </button>
+                </li>
+                <li>
+                    <button onclick="switchTab('cadastro')" id="tab-cadastro" class="py-4 px-2 text-slate-500 hover:text-blue-900 transition">
+                        2. Cadastro e Avaliação de Caso (Formulário Anexo 3)
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 pb-16">
+
+        <!-- ABA 1: CATÁLOGO E FILTROS -->
+        <section id="view-catalogo" class="block">
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200 mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-800">Filtro de Rastreabilidade de Casos (Dados Simulados)</h2>
+                    <p class="text-xs text-slate-500">Utilizado pela Comissão de Autoavaliação para auditar pendências e selecionar os 10 casos CAPES 3.2.</p>
+                </div>
+                <div class="flex flex-wrap gap-3 w-full md:w-auto">
+                    <select id="filtro-lab" onchange="renderCases()" class="px-3 py-2 border rounded-md text-sm bg-slate-50">
+                        <option value="TODOS">Todos os Laboratórios</option>
+                        <option value="LabTEC">LabTEC (Piloto)</option>
+                        <option value="LabTel">LabTel</option>
+                    </select>
+                    <select id="filtro-estagio" onchange="renderCases()" class="px-3 py-2 border rounded-md text-sm bg-slate-50">
+                        <option value="TODOS">Todos os Estágios (3)</option>
+                        <option value="COMPROVADA">Estágio 3: Transferência Comprovada</option>
+                        <option value="ANALISE">Estágio 2: Em Análise (Evidência Incompleta)</option>
+                        <option value="IDENTIFICADO">Estágio 1: Caso Identificado</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Lista de Casos Renderizada via JS -->
+            <div id="lista-casos" class="grid grid-cols-1 gap-6"></div>
+        </section>
+
+        <!-- ABA 2: FORMULÁRIO INTERATIVO ANEXO 3 -->
+        <section id="view-cadastro" class="hidden">
+            <div class="bg-white rounded-lg shadow-md border border-slate-200 p-6 max-w-4xl mx-auto">
+                <div class="mb-4 border-b pb-3 flex justify-between items-center">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">Ficha de Caracterização e Validação (Anexo 3 CAPES 3.2)</h2>
+                        <p class="text-xs text-slate-500">O sistema classifica automaticamente o estágio do caso conforme os critérios C1 a C4.</p>
+                    </div>
+                    <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2.5 py-1 rounded">Modo de Teste V2</span>
+                </div>
+
+                <form id="form-caso" onsubmit="salvarCaso(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">1. Laboratório do PPGTIC *</label>
+                            <select id="input-lab" required class="w-full px-3 py-2 border rounded-md text-sm">
+                                <option value="LabTEC">LabTEC</option>
+                                <option value="LabTel">LabTel</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">2. Tipologia CAPES 3.2 *</label>
+                            <select id="input-tipo" required class="w-full px-3 py-2 border rounded-md text-sm">
+                                <option value="Software / Aplicativo">Software / Aplicativo</option>
+                                <option value="Protocolo Tecnológico / POP">Protocolo Tecnológico / POP</option>
+                                <option value="Tecnologia Social / Material Didático">Tecnologia Social / Material Didático</option>
+                                <option value="Patente / Base de Dados">Patente / Base de Dados</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">3. Parceiro / Beneficiário Externo *</label>
+                            <input id="input-parceiro" type="text" required class="w-full px-3 py-2 border rounded-md text-sm" placeholder="Ex: Prefeitura ou Empresa...">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">4. Título do Produto / Conhecimento Transferido *</label>
+                            <input id="input-titulo" type="text" required class="w-full px-3 py-2 border rounded-md text-sm" placeholder="Nome da solução ou tecnologia...">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">5. Autoria e Vínculo PPGTIC (Critério C1) *</label>
+                            <input id="input-autoria" type="text" required class="w-full px-3 py-2 border rounded-md text-sm" placeholder="Docente Permanente, Discente, Egresso...">
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="flex justify-between">
+                            <label class="block text-xs font-bold text-slate-700 mb-1">6. Justificativa da Inovação e Transferência (Máx. 150 palavras) *</label>
+                            <span id="contador-palavras" class="text-xs font-bold text-slate-500">0 / 150 palavras</span>
+                        </div>
+                        <textarea id="input-justificativa" oninput="contarPalavras()" required rows="3" class="w-full px-3 py-2 border rounded-md text-sm" placeholder="Descreva o conhecimento novo ou melhorado e como foi transferido..."></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-xs font-bold text-slate-700 mb-1">7. Repercussão e Desdobramento no Quadriênio 2025–2028 *</label>
+                        <textarea id="input-repercussao" required rows="2" class="w-full px-3 py-2 border rounded-md text-sm" placeholder="Resultados práticos observados no parceiro/sociedade..."></textarea>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-300 rounded-md p-4 mb-4">
+                        <label class="block text-xs font-bold text-slate-800 mb-2">8. Situação da Evidência Comprobatória (Critério C4 - Define o Estágio) *</label>
+                        <select id="input-evidencia-status" class="w-full px-3 py-2 border rounded-md text-sm mb-2">
+                            <option value="COMPROVADA">Possui Declaração/Termo assinado pelo parceiro externo em 2025–2028 (Gera Estágio 3: Comprovada)</option>
+                            <option value="ANALISE">Evidência Incompleta: apenas artigo ou documento sem assinatura do parceiro (Gera Estágio 2: Em Análise)</option>
+                            <option value="IDENTIFICADO">Sem documento externo ainda — apenas mapeamento inicial (Gera Estágio 1: Identificado)</option>
+                        </select>
+                        <input id="input-arquivo" type="text" class="w-full px-3 py-1.5 border rounded-md text-xs bg-white" placeholder="Nome do arquivo simulado (ex: Declaracao_Parceiro_2026_Simulado.pdf)">
+                    </div>
+
+                    <div class="flex justify-end gap-3">
+                        <button type="submit" class="bg-blue-900 hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-md text-sm shadow">
+                            Executar Validação e Registrar Caso
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const casos = [
+            {
+                id: "CASO-01",
+                lab: "LabTEC",
+                tipo: "Software / Tecnologia Social",
+                titulo: "Plataforma Aberta de Monitoramento de Evasão Escolar (EduTrack-TIC)",
+                autoria: "Docente Permanente A, Mestrando B e Egresso C (PPGTIC)",
+                parceiro: "Secretaria Municipal de Educação de Araranguá",
+                justificativa: "O conhecimento gerado na linha de Tecnologia Educacional do PPGTIC foi aplicado para solucionar a falta de diagnóstico precoce de abandono escolar na rede municipal. O LabTEC desenvolveu e transferiu um software livre e protocolo operacional que cruzam dados bimestrais de frequência e desempenho, emitindo alertas preventivos para gestores pedagógicos (96 palavras).",
+                repercussao: "Implantação em 12 escolas municipais em 2026, capacitação de 38 profissionais e acompanhamento de 2.400 alunos.",
+                estagio: "COMPROVADA",
+                evidencia: "Declaracao_Uso_SME_Ararangua_2026_Simulado.pdf",
+                parecer: "APROVADO (Atende C1, C2, C3 e C4): Vínculo PPGTIC confirmado, texto dentro de 150 palavras e declaração oficial do parceiro externo no quadriênio 2025–2028."
+            },
+            {
+                id: "CASO-02",
+                lab: "LabTel",
+                tipo: "Protocolo Tecnológico Experimental",
+                titulo: "Protocolo IoT de Telemetria Energética para Pequenas Indústrias",
+                autoria: "Docente Permanente D e Mestrando E (PPGTIC)",
+                parceiro: "Indústria Cerâmica Sul Catarinense Ltda. (Simulado)",
+                justificativa: "Desenvolvimento de arquitetura de sensores e painel de telemetria para monitoramento do consumo térmico e elétrico em fornos industriais cerâmicos. O protocolo experimental foi testado em planta produtiva local visando reduzir desperdícios energéticos e apoiar a transformação digital do setor produtivo regional (68 palavras).",
+                repercussao: "Testes preliminares em 2 fornos industriais com estimativa de 8% de economia elétrica, aguardando homologação.",
+                estagio: "ANALISE",
+                evidencia: "Artigo_Congresso_2024_Simulado.pdf (Incompleto)",
+                parecer: "RETIDO EM ANÁLISE (Falha no Critério C4): O artigo anexado comprova produção científica, mas NÃO comprova transferência/adoção pelo parceiro externo no quadriênio 2025–2028. Ação da Comissão: solicitar declaração assinada pela empresa."
+            },
+            {
+                id: "CASO-03",
+                lab: "LabTEC",
+                tipo: "Material Didático / Repositório",
+                titulo: "Guia Interativo de Acessibilidade Digital para Portais Públicos",
+                autoria: "Docente Permanente F e Discente G (PPGTIC)",
+                parceiro: "Em prospecção junto a Câmaras Municipais da AMESC",
+                justificativa: "Cartilha técnica e checklist automatizado para avaliação de contraste, leitores de tela e navegação acessível em portais municipais.",
+                repercussao: "Artefato concluído no laboratório, aguardando formalização de parceria para transferência.",
+                estagio: "IDENTIFICADO",
+                evidencia: "Sem anexo comprobatório externo",
+                parecer: "MAPEADO (Atende C1 e C2; Pendente C3 e C4): Produto identificado no laboratório, aguardando aplicação em parceiro externo."
+            }
+        ];
+
+        function badgeEstagio(estagio) {
+            if (estagio === 'COMPROVADA') {
+                return '<span class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full">Estágio 3: Transferência Comprovada</span>';
+            } else if (estagio === 'ANALISE') {
+                return '<span class="bg-amber-500 text-slate-900 text-xs font-bold px-3 py-1 rounded-full">Estágio 2: Em Análise (Evidência Incompleta)</span>';
+            }
+            return '<span class="bg-slate-500 text-white text-xs font-bold px-3 py-1 rounded-full">Estágio 1: Caso Identificado</span>';
+        }
+
+        function atualizarKPIs() {
+            const total = casos.length;
+            const comprovados = casos.filter(c => c.estagio === 'COMPROVADA').length;
+            const pendentes = total - comprovados;
+            const tvt = total > 0 ? ((comprovados / total) * 100).toFixed(1).replace('.', ',') : '0,0';
+
+            document.getElementById('kpi-comprovados').innerText = comprovados;
+            document.getElementById('kpi-pendentes').innerText = pendentes;
+            document.getElementById('kpi-tvt').innerText = tvt + '%';
+        }
+
+        function renderCases() {
+            const labFiltro = document.getElementById('filtro-lab').value;
+            const estFiltro = document.getElementById('filtro-estagio').value;
+            const container = document.getElementById('lista-casos');
+            container.innerHTML = '';
+
+            const filtrados = casos.filter(c => {
+                const okLab = (labFiltro === 'TODOS' || c.lab === labFiltro);
+                const okEst = (estFiltro === 'TODOS' || c.estagio === estFiltro);
+                return okLab && okEst;
+            });
+
+            filtrados.forEach(c => {
+                container.innerHTML += `
+                    <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="bg-slate-800 text-white px-4 py-2.5 flex flex-wrap justify-between items-center gap-2">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-mono bg-slate-700 px-2 py-0.5 rounded">${c.id} • ${c.lab}</span>
+                                <span class="text-xs text-slate-300">${c.tipo}</span>
+                                <span class="text-xs bg-amber-300 text-slate-900 font-bold px-2 py-0.5 rounded">DADO SIMULADO</span>
+                            </div>
+                            ${badgeEstagio(c.estagio)}
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-lg font-bold text-slate-900">${c.titulo}</h3>
+                            <p class="text-xs text-slate-600 mt-1"><strong>Autoria (PPGTIC):</strong> ${c.autoria} | <strong>Parceiro Externo:</strong> ${c.parceiro}</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3 text-xs text-slate-700 bg-slate-50 p-3 rounded border">
+                                <div><strong>Justificativa (Anexo 3):</strong> ${c.justificativa}</div>
+                                <div><strong>Repercussão e Desdobramento:</strong> ${c.repercussao}</div>
+                            </div>
+                            <div class="mt-3 p-3 rounded text-xs border ${c.estagio === 'COMPROVADA' ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-amber-50 border-amber-200 text-amber-900'}">
+                                <strong>Parecer da Metodologia / Comissão de Autoavaliação:</strong> ${c.parecer}<br>
+                                <strong>Documento Vinculado:</strong> <span class="underline">${c.evidencia}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            atualizarKPIs();
+        }
+
+        function contarPalavras() {
+            const texto = document.getElementById('input-justificativa').value.trim();
+            const palavras = texto ? texto.split(/\s+/).length : 0;
+            const span = document.getElementById('contador-palavras');
+            span.innerText = `${palavras} / 150 palavras`;
+            span.className = palavras > 150 ? 'text-xs font-bold text-red-600' : 'text-xs font-bold text-slate-500';
+        }
+
+        function salvarCaso(e) {
+            e.preventDefault();
+            const texto = document.getElementById('input-justificativa').value.trim();
+            const palavras = texto ? texto.split(/\s+/).length : 0;
+            if (palavras > 150) {
+                alert('Erro de Validação (Anexo 3 CAPES): A justificativa ultrapassou o limite máximo de 150 palavras!');
+                return;
+            }
+            const estagio = document.getElementById('input-evidencia-status').value;
+            const novoCaso = {
+                id: 'CASO-0' + (casos.length + 1),
+                lab: document.getElementById('input-lab').value,
+                tipo: document.getElementById('input-tipo').value,
+                titulo: document.getElementById('input-titulo').value,
+                autoria: document.getElementById('input-autoria').value,
+                parceiro: document.getElementById('input-parceiro').value,
+                justificativa: texto,
+                repercussao: document.getElementById('input-repercussao').value,
+                estagio: estagio,
+                evidencia: document.getElementById('input-arquivo').value || 'Pendente de envio',
+                parecer: estagio === 'COMPROVADA'
+                    ? 'APROVADO (Atende C1 a C4): Registro validado com evidência externa no quadriênio 2025–2028.'
+                    : 'EM CURADORIA: Registro salvo com pendência de comprovação externa para acompanhamento da Comissão.'
+            };
+            casos.unshift(novoCaso);
+            document.getElementById('form-caso').reset();
+            contarPalavras();
+            switchTab('catalogo');
+            renderCases();
+            alert('Caso registrado com sucesso! Os indicadores e o catálogo foram atualizados.');
+        }
+
+        function switchTab(tab) {
+            document.getElementById('view-catalogo').classList.toggle('hidden', tab !== 'catalogo');
+            document.getElementById('view-cadastro').classList.toggle('hidden', tab !== 'cadastro');
+            document.getElementById('tab-catalogo').className = tab === 'catalogo' ? 'py-4 px-2 active-tab transition' : 'py-4 px-2 text-slate-500 hover:text-blue-900 transition';
+            document.getElementById('tab-cadastro').className = tab === 'cadastro' ? 'py-4 px-2 active-tab transition' : 'py-4 px-2 text-slate-500 hover:text-blue-900 transition';
+        }
+
+        renderCases();
+    </script>
+</body>
+</html>
