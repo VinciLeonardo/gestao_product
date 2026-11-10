@@ -1,347 +1,170 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MVP V2 - Portfólio de Inovação e Transferência (PPGTIC/UFSC)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .active-tab {
-            border-bottom: 3px solid #1e3a8a;
-            color: #1e3a8a;
-            font-weight: 700;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfólio de Inovação e Transferência · PPGTIC/UFSC · MVP V2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#14161b;--s1:#1c1f26;--s2:#252933;--line:#2f3440;--tx:#e9ebf1;--mu:#9aa2b3;--ac:#f0305f;--ac2:#ff6b8b;--f:'Plus Jakarta Sans',system-ui,sans-serif;--ok:#2fbf8f;--an:#f0b429;--id:#8b95a8}
+[data-theme=light]{--bg:#f3f4f8;--s1:#fff;--s2:#eceef4;--line:#dcdfe8;--tx:#171a23;--mu:#5d6679;--ac:#e0194d;--ac2:#e0194d;--ok:#13805c;--an:#a56a00;--id:#5d6679}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.55 var(--f);transition:background .25s,color .25s}
+.ok{--s:var(--ok)}.an{--s:var(--an)}.id{--s:var(--id)}
+.w{max-width:1180px;margin:0 auto;padding:0 22px}
+.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .w{display:flex;align-items:center;gap:26px;height:60px}
+.br{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.01em}.br i{width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,var(--ac),#7c3aed)}
+.top nav{display:flex;gap:4px;flex:1}.top nav button{font:inherit;font-weight:600;color:var(--mu);background:none;border:0;padding:8px 14px;border-radius:9px;cursor:pointer}
+.top nav button[aria-selected=true]{color:var(--tx);background:var(--s2)}
+.ib{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--s1);color:var(--tx);cursor:pointer;display:grid;place-items:center}
+.av{width:38px;height:38px;border-radius:10px;background:var(--s2);display:grid;place-items:center;font-weight:700;font-size:12px}
+:focus-visible{outline:3px solid var(--ac2);outline-offset:2px}
+.sim{background:#f0b429;color:#2a2000;font-size:12.5px;font-weight:700;text-align:center;padding:7px 14px}
+.labs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin:22px 0 24px;overflow:auto}
+.labs button{font:inherit;font-weight:600;color:var(--mu);background:none;border:0;border-bottom:2px solid transparent;padding:10px 16px;cursor:pointer;white-space:nowrap;margin-bottom:-1px}
+.labs button[aria-pressed=true]{color:var(--tx);border-color:var(--ac)}
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
+.ban{border-radius:18px;padding:30px;color:#fff;background:radial-gradient(circle at 85% 20%,rgba(255,255,255,.18) 0 90px,transparent 91px),radial-gradient(circle at 70% 110%,rgba(255,255,255,.12) 0 130px,transparent 131px),linear-gradient(135deg,#143a94,#7c3aed 70%,#f0305f)}
+.ban small{opacity:.85;font-weight:600}.ban h1{margin:6px 0 4px;font-size:clamp(26px,3.6vw,38px);line-height:1.1;font-weight:800;letter-spacing:-.02em;max-width:16ch}
+.ban p{margin:0 0 18px;opacity:.9;max-width:46ch}.ban .num{font-size:44px;font-weight:800;letter-spacing:-.03em}.ban .num span{font-size:18px;font-weight:600;opacity:.85}
+.race{height:12px;border-radius:9px;background:rgba(255,255,255,.28);overflow:hidden;max-width:420px}.race i{display:block;height:100%;background:#fff;border-radius:9px;transition:width .5s}
+.st2{display:grid;gap:18px}.stat{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:20px 22px}
+.stat small{color:var(--mu);font-weight:600}.stat b{display:block;font-size:34px;font-weight:800;letter-spacing:-.03em;line-height:1.15;margin:2px 0}.stat span{color:var(--mu);font-size:13px}
+.sec{margin:38px 0 14px;font-size:18px;font-weight:800;letter-spacing:-.01em}.sub{color:var(--mu);margin:-8px 0 18px;max-width:64ch}
+.trail{display:grid;grid-template-columns:repeat(3,1fr);background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:18px 10px;overflow:hidden}
+.nd{display:flex;flex-direction:column;align-items:center;position:relative;background:none;border:0;color:var(--tx);font:inherit;cursor:pointer;padding:0 8px}
+.nd .lb{height:58px;display:flex;flex-direction:column;justify-content:flex-end;text-align:center;font-weight:600}.nd .lb small{color:var(--mu);font-weight:500}
+.nd .sp{width:2px;height:26px;background:var(--line);position:relative}.nd .sp:after{content:"";position:absolute;left:-4px;top:-3px;width:10px;height:10px;border-radius:50%;background:var(--line)}
+.nd.dn .lb{order:3;justify-content:flex-start}.nd.dn .sp{order:2}.nd.dn .sp:after{top:auto;bottom:-3px}.nd.dn .ring{order:1}
+.ring{width:86px;height:86px;border-radius:50%;border:6px solid var(--s);display:grid;place-items:center;font-size:28px;font-weight:800;position:relative;background:var(--s1);transition:transform .2s,box-shadow .2s}
+.nd:hover .ring,.nd[aria-pressed=true] .ring{box-shadow:0 0 0 6px color-mix(in srgb,var(--s) 25%,transparent)}
+.nd:not(:last-child) .ring:after{content:"";position:absolute;left:100%;top:50%;width:calc(100% + 130px);max-width:36vw;height:2px;background:var(--line);z-index:0}
+.nd .e{height:58px;order:3}.nd.dn .e{order:0}
+.nd .ring{z-index:1}
+.tools{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:6px 0 16px}
+select,input[type=text],textarea{font:inherit;color:var(--tx);background:var(--s1);border:1px solid var(--line);border-radius:11px;padding:10px 12px;width:100%}
+select{width:auto;min-width:230px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px}
+.cd{background:var(--s1);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,border-color .2s}.cd:hover{transform:translateY(-3px);border-color:var(--s)}
+.im{height:112px;position:relative;background:radial-gradient(circle at 80% 25%,rgba(255,255,255,.22) 0 46px,transparent 47px),radial-gradient(circle at 15% 110%,rgba(255,255,255,.14) 0 70px,transparent 71px),linear-gradient(135deg,color-mix(in srgb,var(--s) 85%,#000),color-mix(in srgb,var(--s) 55%,#7c3aed))}
+.tg{position:absolute;left:12px;top:12px;background:#f0b429;color:#2a2000;font-weight:800;font-size:10.5px;border-radius:6px;padding:2px 7px}
+.sg{position:absolute;right:12px;bottom:10px;background:rgba(0,0,0,.45);color:#fff;font-weight:700;font-size:11.5px;border-radius:99px;padding:3px 10px;backdrop-filter:blur(4px)}
+.bd{padding:14px 16px 8px;flex:1;display:flex;flex-direction:column;gap:8px}
+.chip{align-self:flex-start;background:var(--s2);border-radius:7px;padding:2px 9px;font-size:12px;font-weight:600}
+.cd h3{margin:0;font-size:16px;line-height:1.3;font-weight:700}
+.sc{max-height:128px;overflow:auto;color:var(--mu);font-size:12.5px;padding-right:6px;scrollbar-width:thin}.sc p{margin:0 0 6px}.sc b{color:var(--tx);font-weight:600}
+.ft{border-top:1px solid var(--line);padding:10px 16px 14px;font-size:12px;color:var(--mu)}.ft .r{height:6px;background:var(--s2);border-radius:9px;margin-top:6px;overflow:hidden}.ft .r i{display:block;height:100%;background:var(--ac);border-radius:9px}
+.vz{grid-column:1/-1;border:1px dashed var(--line);border-radius:16px;padding:40px;text-align:center;color:var(--mu)}
+.btn{font:inherit;font-weight:700;background:var(--ac);color:#fff;border:0;border-radius:11px;padding:12px 22px;cursor:pointer}.btn.s{background:var(--s2);color:var(--tx);margin-top:10px}
+.fm{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:28px;max-width:880px}
+.fm h2{margin:0;font-size:22px;font-weight:800}.fm .sub{margin:4px 0 22px}
+.g{display:grid;gap:16px;margin-bottom:16px}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:1fr 1fr}.fm select{width:100%}
+label{display:block;font-size:12.5px;font-weight:700;margin-bottom:6px}
+.cnt{float:right;color:var(--mu)}.cnt.x{color:#ff5470}
+fieldset{border:1px solid var(--line);border-radius:14px;padding:16px;margin:0 0 22px}legend{font-weight:700;font-size:12.5px;padding:0 6px}
+.op{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1.5px solid var(--line);border-radius:11px;margin-bottom:8px;cursor:pointer;font-weight:400}.op:has(input:checked){border-color:var(--s);background:color-mix(in srgb,var(--s) 14%,transparent)}.op input{margin-top:3px;accent-color:var(--s)}.op b{color:var(--s)}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);opacity:0;pointer-events:none;background:var(--tx);color:var(--bg);padding:12px 18px;border-radius:11px;font-weight:600;transition:.25s;max-width:90vw}#toast.on{opacity:1;transform:translate(-50%,0)}#toast.er{background:#d62850;color:#fff}
+footer{margin:44px 0 36px;color:var(--mu);font-size:12.5px}.hid{display:none}
+@media(max-width:820px){.hero{grid-template-columns:1fr}.g3,.g2{grid-template-columns:1fr}.top .w{gap:10px}.br span{display:none}.ring{width:68px;height:68px;font-size:22px}.nd:not(:last-child) .ring:after{width:60px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
-<body class="bg-slate-100 font-sans antialiased text-slate-800">
+<body>
+<header class="top"><div class="w">
+<div class="br"><i></i><span>Portfólio PPGTIC</span></div>
+<nav role="tablist" aria-label="Seções"><button role="tab" id="tab-catalogo" aria-selected="true" onclick="switchTab('catalogo')">Catálogo</button><button role="tab" id="tab-cadastro" aria-selected="false" onclick="switchTab('cadastro')">Novo caso</button></nav>
+<button class="ib" id="tema" onclick="tema()" aria-label="Alternar modo claro e escuro" title="Modo claro/escuro"></button><div class="av" title="Equipe 05">EQ5</div>
+</div></header>
+<div class="sim" role="note">Ambiente de simulação acadêmica (MVP V2 · EX09): todos os casos, nomes e documentos são dados fictícios demonstrativos.</div>
 
-    <!-- TARJA OBRIGATÓRIA DE DADOS SIMULADOS -->
-    <div class="bg-amber-400 text-slate-900 px-4 py-2 text-center text-xs sm:text-sm font-bold shadow-sm">
-        ⚠️ AMBIENTE DE SIMULAÇÃO ACADÊMICA (MVP V2 - EX09) — TODOS OS CASOS, NOMES E DOCUMENTOS ABAIXO SÃO DADOS FICTÍCIOS DEMONSTRATIVOS
-    </div>
+<main class="w">
+<section id="view-catalogo">
+<div class="labs" role="group" aria-label="Laboratório">
+<button aria-pressed="true" onclick="setLab('TODOS')">Todos os laboratórios</button><button aria-pressed="false" onclick="setLab('LabTEC')">LabTEC (piloto)</button><button aria-pressed="false" onclick="setLab('LabTel')">LabTel</button></div>
 
-    <!-- Cabeçalho Institucional -->
-    <header class="bg-blue-950 text-white shadow-md">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-            <div>
-                <h1 class="text-2xl font-bold">Portfólio de Inovação e Transferência | PPGTIC</h1>
-                <p class="text-sm text-blue-200">Equipe 05 • Monitoramento e Evidenciação de Casos (CAPES 3.2 | OE7 | A44–A49)</p>
-            </div>
-            <div class="text-xs bg-blue-900 border border-blue-700 py-1.5 px-3 rounded-md">
-                Versão: <strong>MVP V2 (Funcional)</strong>
-            </div>
-        </div>
-    </header>
+<div class="hero">
+<div class="ban"><small>Item 3.2 · CAPES · OE7 · A44–A49</small><h1>Casos prontos para o Anexo 3</h1><p id="kpi-det">Meta do PPGTIC em 2026: pelo menos 5 casos de transferência comprovada.</p>
+<div class="num"><span id="kpi-comprovados">1</span> <span>de 5 casos (CTC)</span></div><div class="race" style="margin-top:10px"><i id="meta-bar"></i></div></div>
+<div class="st2"><div class="stat"><small>Em curadoria</small><b id="kpi-pendentes">2</b><span id="kpi-det2">Acompanhados pela Comissão de Autoavaliação.</span></div>
+<div class="stat"><small>Taxa de validação (TVT)</small><b id="kpi-tvt">33,3%</b><span>Casos mapeados com evidência C1–C4 validada.</span></div></div>
+</div>
 
-    <!-- Painel de Indicadores (KPIs Revisados) -->
-    <section class="max-w-6xl mx-auto px-4 mt-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-emerald-600">
-                <p class="text-xs font-bold text-slate-500 uppercase">Indicador 1: Casos Comprovados (CTC)</p>
-                <div class="flex items-baseline justify-between mt-1">
-                    <span id="kpi-comprovados" class="text-3xl font-extrabold text-emerald-700">1</span>
-                    <span class="text-xs text-slate-500">Meta PPGTIC 2026: ≥ 5 casos</span>
-                </div>
-                <p class="text-xs text-slate-600 mt-1">Aptos para o Anexo 3 (CAPES 3.2) no quadriênio 2025–2028.</p>
-            </div>
+<h2 class="sec">Trilha de estágios</h2><p class="sub">Todo caso percorre três estágios. Clique em um deles para filtrar o catálogo.</p>
+<div class="trail" id="trail"></div>
 
-            <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-amber-500">
-                <p class="text-xs font-bold text-slate-500 uppercase">Casos Retidos / Em Curadoria</p>
-                <div class="flex items-baseline justify-between mt-1">
-                    <span id="kpi-pendentes" class="text-3xl font-extrabold text-amber-600">2</span>
-                    <span class="text-xs text-slate-500">1 Em Análise | 1 Identificado</span>
-                </div>
-                <p class="text-xs text-slate-600 mt-1">Acompanhamento pela Comissão de Autoavaliação.</p>
-            </div>
+<h2 class="sec">Casos de transferência</h2>
+<div class="tools"><p class="sub" style="margin:0">Use o filtro para auditar pendências e selecionar os 10 casos do item 3.2.</p>
+<select id="filtro-estagio" onchange="renderCases()" aria-label="Estágio"><option value="TODOS">Todos os estágios</option><option value="COMPROVADA">Estágio 3: transferência comprovada</option><option value="ANALISE">Estágio 2: em análise</option><option value="IDENTIFICADO">Estágio 1: caso identificado</option></select>
+<select id="filtro-lab" class="hid" aria-hidden="true"><option value="TODOS">Todos</option><option value="LabTEC">LabTEC</option><option value="LabTel">LabTel</option></select></div>
+<div class="grid" id="lista-casos"></div>
+</section>
 
-            <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-blue-700">
-                <p class="text-xs font-bold text-slate-500 uppercase">Indicador 2: Taxa de Validação (TVT)</p>
-                <div class="flex items-baseline justify-between mt-1">
-                    <span id="kpi-tvt" class="text-3xl font-extrabold text-blue-900">33,3%</span>
-                    <span class="text-xs text-slate-500">Métrica Operacional MVP</span>
-                </div>
-                <p class="text-xs text-slate-600 mt-1">Proporção de casos mapeados com evidência C1–C4 validada.</p>
-            </div>
-        </div>
-    </section>
+<section id="view-cadastro" class="hid" style="margin-top:28px">
+<form class="fm" id="form-caso" onsubmit="salvarCaso(event)">
+<h2>Ficha de caracterização e validação</h2><p class="sub">Campos do Anexo 3 (CAPES 3.2). O estágio do caso é definido pela situação da evidência (critério C4).</p>
+<div class="g g3">
+<div><label for="input-lab">Laboratório do PPGTIC *</label><select id="input-lab" required><option>LabTEC</option><option>LabTel</option></select></div>
+<div><label for="input-tipo">Tipologia CAPES 3.2 *</label><select id="input-tipo" required><option>Software / Aplicativo</option><option>Protocolo Tecnológico / POP</option><option>Tecnologia Social / Material Didático</option><option>Patente / Base de Dados</option></select></div>
+<div><label for="input-parceiro">Parceiro ou beneficiário externo *</label><input id="input-parceiro" type="text" required placeholder="Ex.: prefeitura ou empresa"></div></div>
+<div class="g g2">
+<div><label for="input-titulo">Título do produto ou conhecimento *</label><input id="input-titulo" type="text" required placeholder="Nome da solução ou tecnologia"></div>
+<div><label for="input-autoria">Autoria e vínculo com o PPGTIC (C1) *</label><input id="input-autoria" type="text" required placeholder="Docente permanente, discente, egresso"></div></div>
+<div class="g"><div><label for="input-justificativa">Justificativa da inovação e da transferência * <span class="cnt" id="contador-palavras">0 / 150 palavras</span></label><textarea id="input-justificativa" oninput="contarPalavras()" required rows="3" placeholder="Descreva o conhecimento novo ou melhorado e como foi transferido"></textarea></div>
+<div><label for="input-repercussao">Repercussão e desdobramento no quadriênio 2025–2028 *</label><textarea id="input-repercussao" required rows="2" placeholder="Resultados práticos observados no parceiro ou na sociedade"></textarea></div></div>
+<fieldset><legend>Situação da evidência comprobatória (C4) *</legend>
+<label class="op ok"><input type="radio" name="evid" value="COMPROVADA" checked><span><b>Estágio 3: comprovada.</b> Declaração ou termo assinado pelo parceiro externo em 2025–2028.</span></label>
+<label class="op an"><input type="radio" name="evid" value="ANALISE"><span><b>Estágio 2: em análise.</b> Apenas artigo ou documento sem a assinatura do parceiro.</span></label>
+<label class="op id"><input type="radio" name="evid" value="IDENTIFICADO"><span><b>Estágio 1: identificado.</b> Sem documento externo ainda, só mapeamento inicial.</span></label>
+<label for="input-arquivo" style="margin-top:12px">Arquivo de comprovação (simulado)</label><input id="input-arquivo" type="text" placeholder="Ex.: Declaracao_Parceiro_2026_Simulado.pdf"></fieldset>
+<div style="text-align:right"><button class="btn" type="submit">Validar e registrar caso</button></div>
+</form></section>
+<footer>Equipe 05 · UFSC Araranguá · CIT7586 Gestão de Projetos I. CTC e TVT são métricas operacionais internas do MVP e não substituem o IEV institucional do PPGTIC.</footer>
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
 
-    <!-- Navegação -->
-    <nav class="bg-white shadow-sm mt-6 mb-6">
-        <div class="max-w-6xl mx-auto px-4">
-            <ul class="flex space-x-8 text-sm">
-                <li>
-                    <button onclick="switchTab('catalogo')" id="tab-catalogo" class="py-4 px-2 active-tab transition">
-                        1. Catálogo e Painel da Comissão (Consulta e Filtros)
-                    </button>
-                </li>
-                <li>
-                    <button onclick="switchTab('cadastro')" id="tab-cadastro" class="py-4 px-2 text-slate-500 hover:text-blue-900 transition">
-                        2. Cadastro e Avaliação de Caso (Formulário Anexo 3)
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <main class="max-w-6xl mx-auto px-4 pb-16">
-
-        <!-- ABA 1: CATÁLOGO E FILTROS -->
-        <section id="view-catalogo" class="block">
-            <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200 mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
-                <div>
-                    <h2 class="text-lg font-bold text-slate-800">Filtro de Rastreabilidade de Casos (Dados Simulados)</h2>
-                    <p class="text-xs text-slate-500">Utilizado pela Comissão de Autoavaliação para auditar pendências e selecionar os 10 casos CAPES 3.2.</p>
-                </div>
-                <div class="flex flex-wrap gap-3 w-full md:w-auto">
-                    <select id="filtro-lab" onchange="renderCases()" class="px-3 py-2 border rounded-md text-sm bg-slate-50">
-                        <option value="TODOS">Todos os Laboratórios</option>
-                        <option value="LabTEC">LabTEC (Piloto)</option>
-                        <option value="LabTel">LabTel</option>
-                    </select>
-                    <select id="filtro-estagio" onchange="renderCases()" class="px-3 py-2 border rounded-md text-sm bg-slate-50">
-                        <option value="TODOS">Todos os Estágios (3)</option>
-                        <option value="COMPROVADA">Estágio 3: Transferência Comprovada</option>
-                        <option value="ANALISE">Estágio 2: Em Análise (Evidência Incompleta)</option>
-                        <option value="IDENTIFICADO">Estágio 1: Caso Identificado</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Lista de Casos Renderizada via JS -->
-            <div id="lista-casos" class="grid grid-cols-1 gap-6"></div>
-        </section>
-
-        <!-- ABA 2: FORMULÁRIO INTERATIVO ANEXO 3 -->
-        <section id="view-cadastro" class="hidden">
-            <div class="bg-white rounded-lg shadow-md border border-slate-200 p-6 max-w-4xl mx-auto">
-                <div class="mb-4 border-b pb-3 flex justify-between items-center">
-                    <div>
-                        <h2 class="text-xl font-bold text-slate-800">Ficha de Caracterização e Validação (Anexo 3 CAPES 3.2)</h2>
-                        <p class="text-xs text-slate-500">O sistema classifica automaticamente o estágio do caso conforme os critérios C1 a C4.</p>
-                    </div>
-                    <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2.5 py-1 rounded">Modo de Teste V2</span>
-                </div>
-
-                <form id="form-caso" onsubmit="salvarCaso(event)">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">1. Laboratório do PPGTIC *</label>
-                            <select id="input-lab" required class="w-full px-3 py-2 border rounded-md text-sm">
-                                <option value="LabTEC">LabTEC</option>
-                                <option value="LabTel">LabTel</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">2. Tipologia CAPES 3.2 *</label>
-                            <select id="input-tipo" required class="w-full px-3 py-2 border rounded-md text-sm">
-                                <option value="Software / Aplicativo">Software / Aplicativo</option>
-                                <option value="Protocolo Tecnológico / POP">Protocolo Tecnológico / POP</option>
-                                <option value="Tecnologia Social / Material Didático">Tecnologia Social / Material Didático</option>
-                                <option value="Patente / Base de Dados">Patente / Base de Dados</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">3. Parceiro / Beneficiário Externo *</label>
-                            <input id="input-parceiro" type="text" required class="w-full px-3 py-2 border rounded-md text-sm" placeholder="Ex: Prefeitura ou Empresa...">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">4. Título do Produto / Conhecimento Transferido *</label>
-                            <input id="input-titulo" type="text" required class="w-full px-3 py-2 border rounded-md text-sm" placeholder="Nome da solução ou tecnologia...">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">5. Autoria e Vínculo PPGTIC (Critério C1) *</label>
-                            <input id="input-autoria" type="text" required class="w-full px-3 py-2 border rounded-md text-sm" placeholder="Docente Permanente, Discente, Egresso...">
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="flex justify-between">
-                            <label class="block text-xs font-bold text-slate-700 mb-1">6. Justificativa da Inovação e Transferência (Máx. 150 palavras) *</label>
-                            <span id="contador-palavras" class="text-xs font-bold text-slate-500">0 / 150 palavras</span>
-                        </div>
-                        <textarea id="input-justificativa" oninput="contarPalavras()" required rows="3" class="w-full px-3 py-2 border rounded-md text-sm" placeholder="Descreva o conhecimento novo ou melhorado e como foi transferido..."></textarea>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-xs font-bold text-slate-700 mb-1">7. Repercussão e Desdobramento no Quadriênio 2025–2028 *</label>
-                        <textarea id="input-repercussao" required rows="2" class="w-full px-3 py-2 border rounded-md text-sm" placeholder="Resultados práticos observados no parceiro/sociedade..."></textarea>
-                    </div>
-
-                    <div class="bg-slate-50 border border-slate-300 rounded-md p-4 mb-4">
-                        <label class="block text-xs font-bold text-slate-800 mb-2">8. Situação da Evidência Comprobatória (Critério C4 - Define o Estágio) *</label>
-                        <select id="input-evidencia-status" class="w-full px-3 py-2 border rounded-md text-sm mb-2">
-                            <option value="COMPROVADA">Possui Declaração/Termo assinado pelo parceiro externo em 2025–2028 (Gera Estágio 3: Comprovada)</option>
-                            <option value="ANALISE">Evidência Incompleta: apenas artigo ou documento sem assinatura do parceiro (Gera Estágio 2: Em Análise)</option>
-                            <option value="IDENTIFICADO">Sem documento externo ainda — apenas mapeamento inicial (Gera Estágio 1: Identificado)</option>
-                        </select>
-                        <input id="input-arquivo" type="text" class="w-full px-3 py-1.5 border rounded-md text-xs bg-white" placeholder="Nome do arquivo simulado (ex: Declaracao_Parceiro_2026_Simulado.pdf)">
-                    </div>
-
-                    <div class="flex justify-end gap-3">
-                        <button type="submit" class="bg-blue-900 hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-md text-sm shadow">
-                            Executar Validação e Registrar Caso
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <script>
-        const casos = [
-            {
-                id: "CASO-01",
-                lab: "LabTEC",
-                tipo: "Software / Tecnologia Social",
-                titulo: "Plataforma Aberta de Monitoramento de Evasão Escolar (EduTrack-TIC)",
-                autoria: "Docente Permanente A, Mestrando B e Egresso C (PPGTIC)",
-                parceiro: "Secretaria Municipal de Educação de Araranguá",
-                justificativa: "O conhecimento gerado na linha de Tecnologia Educacional do PPGTIC foi aplicado para solucionar a falta de diagnóstico precoce de abandono escolar na rede municipal. O LabTEC desenvolveu e transferiu um software livre e protocolo operacional que cruzam dados bimestrais de frequência e desempenho, emitindo alertas preventivos para gestores pedagógicos (96 palavras).",
-                repercussao: "Implantação em 12 escolas municipais em 2026, capacitação de 38 profissionais e acompanhamento de 2.400 alunos.",
-                estagio: "COMPROVADA",
-                evidencia: "Declaracao_Uso_SME_Ararangua_2026_Simulado.pdf",
-                parecer: "APROVADO (Atende C1, C2, C3 e C4): Vínculo PPGTIC confirmado, texto dentro de 150 palavras e declaração oficial do parceiro externo no quadriênio 2025–2028."
-            },
-            {
-                id: "CASO-02",
-                lab: "LabTel",
-                tipo: "Protocolo Tecnológico Experimental",
-                titulo: "Protocolo IoT de Telemetria Energética para Pequenas Indústrias",
-                autoria: "Docente Permanente D e Mestrando E (PPGTIC)",
-                parceiro: "Indústria Cerâmica Sul Catarinense Ltda. (Simulado)",
-                justificativa: "Desenvolvimento de arquitetura de sensores e painel de telemetria para monitoramento do consumo térmico e elétrico em fornos industriais cerâmicos. O protocolo experimental foi testado em planta produtiva local visando reduzir desperdícios energéticos e apoiar a transformação digital do setor produtivo regional (68 palavras).",
-                repercussao: "Testes preliminares em 2 fornos industriais com estimativa de 8% de economia elétrica, aguardando homologação.",
-                estagio: "ANALISE",
-                evidencia: "Artigo_Congresso_2024_Simulado.pdf (Incompleto)",
-                parecer: "RETIDO EM ANÁLISE (Falha no Critério C4): O artigo anexado comprova produção científica, mas NÃO comprova transferência/adoção pelo parceiro externo no quadriênio 2025–2028. Ação da Comissão: solicitar declaração assinada pela empresa."
-            },
-            {
-                id: "CASO-03",
-                lab: "LabTEC",
-                tipo: "Material Didático / Repositório",
-                titulo: "Guia Interativo de Acessibilidade Digital para Portais Públicos",
-                autoria: "Docente Permanente F e Discente G (PPGTIC)",
-                parceiro: "Em prospecção junto a Câmaras Municipais da AMESC",
-                justificativa: "Cartilha técnica e checklist automatizado para avaliação de contraste, leitores de tela e navegação acessível em portais municipais.",
-                repercussao: "Artefato concluído no laboratório, aguardando formalização de parceria para transferência.",
-                estagio: "IDENTIFICADO",
-                evidencia: "Sem anexo comprobatório externo",
-                parecer: "MAPEADO (Atende C1 e C2; Pendente C3 e C4): Produto identificado no laboratório, aguardando aplicação em parceiro externo."
-            }
-        ];
-
-        function badgeEstagio(estagio) {
-            if (estagio === 'COMPROVADA') {
-                return '<span class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full">Estágio 3: Transferência Comprovada</span>';
-            } else if (estagio === 'ANALISE') {
-                return '<span class="bg-amber-500 text-slate-900 text-xs font-bold px-3 py-1 rounded-full">Estágio 2: Em Análise (Evidência Incompleta)</span>';
-            }
-            return '<span class="bg-slate-500 text-white text-xs font-bold px-3 py-1 rounded-full">Estágio 1: Caso Identificado</span>';
-        }
-
-        function atualizarKPIs() {
-            const total = casos.length;
-            const comprovados = casos.filter(c => c.estagio === 'COMPROVADA').length;
-            const pendentes = total - comprovados;
-            const tvt = total > 0 ? ((comprovados / total) * 100).toFixed(1).replace('.', ',') : '0,0';
-
-            document.getElementById('kpi-comprovados').innerText = comprovados;
-            document.getElementById('kpi-pendentes').innerText = pendentes;
-            document.getElementById('kpi-tvt').innerText = tvt + '%';
-        }
-
-        function renderCases() {
-            const labFiltro = document.getElementById('filtro-lab').value;
-            const estFiltro = document.getElementById('filtro-estagio').value;
-            const container = document.getElementById('lista-casos');
-            container.innerHTML = '';
-
-            const filtrados = casos.filter(c => {
-                const okLab = (labFiltro === 'TODOS' || c.lab === labFiltro);
-                const okEst = (estFiltro === 'TODOS' || c.estagio === estFiltro);
-                return okLab && okEst;
-            });
-
-            filtrados.forEach(c => {
-                container.innerHTML += `
-                    <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
-                        <div class="bg-slate-800 text-white px-4 py-2.5 flex flex-wrap justify-between items-center gap-2">
-                            <div class="flex items-center gap-2">
-                                <span class="text-xs font-mono bg-slate-700 px-2 py-0.5 rounded">${c.id} • ${c.lab}</span>
-                                <span class="text-xs text-slate-300">${c.tipo}</span>
-                                <span class="text-xs bg-amber-300 text-slate-900 font-bold px-2 py-0.5 rounded">DADO SIMULADO</span>
-                            </div>
-                            ${badgeEstagio(c.estagio)}
-                        </div>
-                        <div class="p-5">
-                            <h3 class="text-lg font-bold text-slate-900">${c.titulo}</h3>
-                            <p class="text-xs text-slate-600 mt-1"><strong>Autoria (PPGTIC):</strong> ${c.autoria} | <strong>Parceiro Externo:</strong> ${c.parceiro}</p>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3 text-xs text-slate-700 bg-slate-50 p-3 rounded border">
-                                <div><strong>Justificativa (Anexo 3):</strong> ${c.justificativa}</div>
-                                <div><strong>Repercussão e Desdobramento:</strong> ${c.repercussao}</div>
-                            </div>
-                            <div class="mt-3 p-3 rounded text-xs border ${c.estagio === 'COMPROVADA' ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-amber-50 border-amber-200 text-amber-900'}">
-                                <strong>Parecer da Metodologia / Comissão de Autoavaliação:</strong> ${c.parecer}<br>
-                                <strong>Documento Vinculado:</strong> <span class="underline">${c.evidencia}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            atualizarKPIs();
-        }
-
-        function contarPalavras() {
-            const texto = document.getElementById('input-justificativa').value.trim();
-            const palavras = texto ? texto.split(/\s+/).length : 0;
-            const span = document.getElementById('contador-palavras');
-            span.innerText = `${palavras} / 150 palavras`;
-            span.className = palavras > 150 ? 'text-xs font-bold text-red-600' : 'text-xs font-bold text-slate-500';
-        }
-
-        function salvarCaso(e) {
-            e.preventDefault();
-            const texto = document.getElementById('input-justificativa').value.trim();
-            const palavras = texto ? texto.split(/\s+/).length : 0;
-            if (palavras > 150) {
-                alert('Erro de Validação (Anexo 3 CAPES): A justificativa ultrapassou o limite máximo de 150 palavras!');
-                return;
-            }
-            const estagio = document.getElementById('input-evidencia-status').value;
-            const novoCaso = {
-                id: 'CASO-0' + (casos.length + 1),
-                lab: document.getElementById('input-lab').value,
-                tipo: document.getElementById('input-tipo').value,
-                titulo: document.getElementById('input-titulo').value,
-                autoria: document.getElementById('input-autoria').value,
-                parceiro: document.getElementById('input-parceiro').value,
-                justificativa: texto,
-                repercussao: document.getElementById('input-repercussao').value,
-                estagio: estagio,
-                evidencia: document.getElementById('input-arquivo').value || 'Pendente de envio',
-                parecer: estagio === 'COMPROVADA'
-                    ? 'APROVADO (Atende C1 a C4): Registro validado com evidência externa no quadriênio 2025–2028.'
-                    : 'EM CURADORIA: Registro salvo com pendência de comprovação externa para acompanhamento da Comissão.'
-            };
-            casos.unshift(novoCaso);
-            document.getElementById('form-caso').reset();
-            contarPalavras();
-            switchTab('catalogo');
-            renderCases();
-            alert('Caso registrado com sucesso! Os indicadores e o catálogo foram atualizados.');
-        }
-
-        function switchTab(tab) {
-            document.getElementById('view-catalogo').classList.toggle('hidden', tab !== 'catalogo');
-            document.getElementById('view-cadastro').classList.toggle('hidden', tab !== 'cadastro');
-            document.getElementById('tab-catalogo').className = tab === 'catalogo' ? 'py-4 px-2 active-tab transition' : 'py-4 px-2 text-slate-500 hover:text-blue-900 transition';
-            document.getElementById('tab-cadastro').className = tab === 'cadastro' ? 'py-4 px-2 active-tab transition' : 'py-4 px-2 text-slate-500 hover:text-blue-900 transition';
-        }
-
-        renderCases();
-    </script>
+<script>
+const casos=[
+{id:"CASO-01",lab:"LabTEC",tipo:"Software / Tecnologia Social",titulo:"Plataforma Aberta de Monitoramento de Evasão Escolar (EduTrack-TIC)",autoria:"Docente Permanente A, Mestrando B e Egresso C (PPGTIC)",parceiro:"Secretaria Municipal de Educação de Araranguá",justificativa:"O conhecimento gerado na linha de Tecnologia Educacional do PPGTIC foi aplicado para solucionar a falta de diagnóstico precoce de abandono escolar na rede municipal. O LabTEC desenvolveu e transferiu um software livre e protocolo operacional que cruzam dados bimestrais de frequência e desempenho, emitindo alertas preventivos para gestores pedagógicos (96 palavras).",repercussao:"Implantação em 12 escolas municipais em 2026, capacitação de 38 profissionais e acompanhamento de 2.400 alunos.",estagio:"COMPROVADA",evidencia:"Declaracao_Uso_SME_Ararangua_2026_Simulado.pdf",parecer:"APROVADO (atende C1, C2, C3 e C4): vínculo PPGTIC confirmado, texto dentro de 150 palavras e declaração oficial do parceiro externo no quadriênio 2025–2028."},
+{id:"CASO-02",lab:"LabTel",tipo:"Protocolo Tecnológico Experimental",titulo:"Protocolo IoT de Telemetria Energética para Pequenas Indústrias",autoria:"Docente Permanente D e Mestrando E (PPGTIC)",parceiro:"Indústria Cerâmica Sul Catarinense Ltda. (simulado)",justificativa:"Desenvolvimento de arquitetura de sensores e painel de telemetria para monitoramento do consumo térmico e elétrico em fornos industriais cerâmicos. O protocolo experimental foi testado em planta produtiva local visando reduzir desperdícios energéticos e apoiar a transformação digital do setor produtivo regional (68 palavras).",repercussao:"Testes preliminares em 2 fornos industriais com estimativa de 8% de economia elétrica, aguardando homologação.",estagio:"ANALISE",evidencia:"Artigo_Congresso_2024_Simulado.pdf (incompleto)",parecer:"RETIDO EM ANÁLISE (falha no critério C4): o artigo comprova produção científica, mas não comprova transferência ou adoção pelo parceiro externo no quadriênio 2025–2028. Ação da Comissão: solicitar declaração assinada pela empresa."},
+{id:"CASO-03",lab:"LabTEC",tipo:"Material Didático / Repositório",titulo:"Guia Interativo de Acessibilidade Digital para Portais Públicos",autoria:"Docente Permanente F e Discente G (PPGTIC)",parceiro:"Em prospecção junto a Câmaras Municipais da AMESC",justificativa:"Cartilha técnica e checklist automatizado para avaliação de contraste, leitores de tela e navegação acessível em portais municipais.",repercussao:"Artefato concluído no laboratório, aguardando formalização de parceria para transferência.",estagio:"IDENTIFICADO",evidencia:"Sem anexo comprobatório externo",parecer:"MAPEADO (atende C1 e C2; pendente C3 e C4): produto identificado no laboratório, aguardando aplicação em parceiro externo."}];
+const E={IDENTIFICADO:{c:'id',n:'Estágio 1 · Identificado',t:'Caso identificado',d:'Mapeado no laboratório',p:33},ANALISE:{c:'an',n:'Estágio 2 · Em análise',t:'Em análise',d:'Evidência incompleta',p:66},COMPROVADA:{c:'ok',n:'Estágio 3 · Comprovada',t:'Transferência comprovada',d:'Apta ao Anexo 3',p:100}};
+const K=Object.keys(E);
+const $=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const n=k=>casos.filter(c=>c.estagio===k).length;
+function toast(m,er){const t=$('toast');t.textContent=m;t.className='on'+(er?' er':'');clearTimeout(t.h);t.h=setTimeout(()=>t.className='',3800)}
+function tema(v){const d=document.documentElement;v=v||(d.dataset.theme==='dark'?'light':'dark');d.dataset.theme=v;
+$('tema').innerHTML=v==='dark'?'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>':'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+try{localStorage.setItem('tema',v)}catch(e){}}
+function atualizarKPIs(){const t=casos.length,ok=n('COMPROVADA'),f=$('filtro-estagio').value;
+$('kpi-comprovados').innerText=ok;$('kpi-pendentes').innerText=t-ok;
+$('kpi-det').innerText=ok>=5?'Meta de 2026 atingida.':'Faltam '+(5-ok)+' casos para a meta de 2026 do PPGTIC (item 3.2).';
+$('kpi-det2').innerText=n('ANALISE')+' em análise e '+n('IDENTIFICADO')+' identificado(s), acompanhados pela Comissão.';
+$('kpi-tvt').innerText=(t?(ok/t*100).toFixed(1).replace('.',','):'0,0')+'%';
+$('meta-bar').style.width=Math.min(100,ok/5*100)+'%';
+$('trail').innerHTML=K.map((k,i)=>`<button class="nd ${E[k].c} ${i===1?'dn':''}" aria-pressed="${f===k}" onclick="setEstagio('${k}')"><span class="lb">${E[k].t}<small>${E[k].d}</small></span><span class="sp"></span><span class="ring">${n(k)}</span><span class="e"></span></button>`).join('')}
+function setEstagio(k){$('filtro-estagio').value=$('filtro-estagio').value===k?'TODOS':k;renderCases()}
+function setLab(l){$('filtro-lab').value=l;document.querySelectorAll('.labs button').forEach(b=>b.setAttribute('aria-pressed',b.textContent.startsWith(l==='TODOS'?'Todos':l)));renderCases()}
+function renderCases(){const L=$('filtro-lab').value,S=$('filtro-estagio').value;
+const r=casos.filter(c=>(L==='TODOS'||c.lab===L)&&(S==='TODOS'||c.estagio===S));
+$('lista-casos').innerHTML=r.length?r.map(c=>`<article class="cd ${E[c.estagio].c}"><div class="im"><span class="tg">DADO SIMULADO</span><span class="sg">${E[c.estagio].n}</span></div>
+<div class="bd"><span class="chip">${esc(c.id)} · ${esc(c.lab)}</span><h3>${esc(c.titulo)}</h3>
+<div class="sc" tabindex="0"><p><b>${esc(c.tipo)}</b></p><p><b>Autoria:</b> ${esc(c.autoria)}</p><p><b>Parceiro:</b> ${esc(c.parceiro)}</p><p><b>Justificativa:</b> ${esc(c.justificativa)}</p><p><b>Repercussão:</b> ${esc(c.repercussao)}</p><p><b>Parecer:</b> ${esc(c.parecer)}</p><p><b>Documento:</b> ${esc(c.evidencia)}</p></div></div>
+<div class="ft">${E[c.estagio].p}% da régua concluída<div class="r"><i style="width:${E[c.estagio].p}%"></i></div></div></article>`).join('')
+:'<div class="vz">Nenhum caso encontrado com esses filtros.<br><button class="btn s" onclick="setLab(\'TODOS\');$(\'filtro-estagio\').value=\'TODOS\';renderCases()">Limpar filtros</button></div>';
+atualizarKPIs()}
+function palavras(){const t=$('input-justificativa').value.trim();return t?t.split(/\s+/).length:0}
+function contarPalavras(){const p=palavras(),s=$('contador-palavras');s.innerText=p+' / 150 palavras';s.className='cnt'+(p>150?' x':'')}
+function salvarCaso(e){e.preventDefault();
+if(palavras()>150){toast('A justificativa passou de 150 palavras, o limite do Anexo 3. Reduza o texto para continuar.',1);return}
+const est=document.querySelector('input[name=evid]:checked').value,ok=est==='COMPROVADA';
+casos.unshift({id:'CASO-'+String(casos.length+1).padStart(2,'0'),lab:$('input-lab').value,tipo:$('input-tipo').value,titulo:$('input-titulo').value,autoria:$('input-autoria').value,parceiro:$('input-parceiro').value,justificativa:$('input-justificativa').value.trim(),repercussao:$('input-repercussao').value,estagio:est,evidencia:$('input-arquivo').value||'Pendente de envio',
+parecer:ok?'APROVADO (atende C1 a C4): registro validado com evidência externa no quadriênio 2025–2028.':'EM CURADORIA: registro salvo com pendência de comprovação externa para acompanhamento da Comissão.'});
+$('form-caso').reset();contarPalavras();switchTab('catalogo');renderCases();toast('Caso registrado. Catálogo e indicadores atualizados.')}
+function switchTab(t){$('view-catalogo').classList.toggle('hid',t!=='catalogo');$('view-cadastro').classList.toggle('hid',t!=='cadastro');
+['catalogo','cadastro'].forEach(k=>$('tab-'+k).setAttribute('aria-selected',k===t));scrollTo(0,0)}
+let tm;try{tm=localStorage.getItem('tema')}catch(e){}
+tema(tm||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));renderCases();
+</script>
 </body>
 </html>
